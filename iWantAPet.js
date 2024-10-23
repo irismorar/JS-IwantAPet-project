@@ -62,7 +62,9 @@ function handleClick(event) {
     contentElement.append(loading_message);
 
     iWant('cats').then(cats => {
-      contentElement.innerHTML = createTable(cats, 'Cat');
+      const cats_table = createTable(cats, 'CAT');
+      contentElement.innerHTML = '';
+      contentElement.append(cats_table);
       // const catElements = cats.map(cat => {
       //   const divElement = document.createElement('div');
       //   divElement.append(cat.name, ': ',cat.favoriteFood);
@@ -77,7 +79,9 @@ function handleClick(event) {
     contentElement.append(loading_message);
 
     iWant('dogs').then(dogs => {
-      contentElement.innerHTML = createTable(dogs, 'Dog');
+      const dog_table = createTable(dogs, 'DOG');
+      contentElement.innerHTML = '';
+      contentElement.append(dog_table);
     });
   }
 
@@ -100,8 +104,8 @@ function createTable(animal_collection, animal_type) {
   let tableHeaderNameElement = document.createElement('th');
   let tableHeaderFoodElement = document.createElement('th');
   
-  tableHeaderNameElement.append(`${animal_type} name`);
-  tableHeaderFoodElement.append('Favorite food');
+  tableHeaderNameElement.append(`${animal_type} NAME`);
+  tableHeaderFoodElement.append('FAVORITE FOOD');
   tableRowHeadElement.append(tableHeaderNameElement, tableHeaderFoodElement);
   tableHeadElement.append(tableRowHeadElement);
   
@@ -118,7 +122,7 @@ function createTable(animal_collection, animal_type) {
   tableBodyElement.append(...animal_infos_element);
   tableElement.append(tableHeadElement, tableBodyElement);
   
-  console.log(tableElement)
+  return tableElement
   
   // return `<table>
   //     <thead>

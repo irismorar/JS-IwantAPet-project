@@ -13,6 +13,8 @@
   --clr-2: #33ff8c;
   --clr-3: #40fcff;
   --clr-4: #e54cff;
+  --clr-5: #9d869b;
+  --clr-6: #e3d1e1;
 
   --blur: 1rem;
   --fs: clamp(2rem, 10vw, 4rem);
@@ -24,7 +26,7 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   gap: 5rem;
   flex-direction: column;
   background-color: var(--bg);
@@ -236,9 +238,31 @@ button:focus {
   color: pink;
 }
 
+
+.contentElement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 table {
-  width: 50%;
-  height: 40%;
-  border: 2px solid #bbb;
-  color: #bbb;
+  width: 80vh;
+  height: 60%;
+  border: .2em solid var(--clr-5);
+  color: var(--clr-6);
+}
+
+th {
+  border: .04em solid var(--clr-5);
+  font-size: 1.5em;
+  letter-spacing: .05em;
+  padding: 1em .8em;
+}
+
+td {
+  border: .04em solid var(--clr-5);
+  font-size: 1.2em;
+  text-align: center;
+  letter-spacing: .05em;
+  padding: .4em .2em;
 }
