@@ -32,6 +32,7 @@ const dogs_collection = [
 
 const initial_message = "Choose what kind of pets you want";
 const loading_message = "Please wait...";
+const sorry_message = "Sorry, all I have is cats and dogs";
 
 let text_display_element = document.querySelector(".title");
 text_display_element.append(initial_message);
@@ -49,20 +50,19 @@ function iWant(pet_type){
       } else if (pet_type === 'dogs'){
         resolve(dogs_collection)
       } else {
-        reject("Sorry, all I have is cats and dogs")
+        reject(sorry_message)
       }
     }, 3000);
   })
 }
 
 function handleClick(event) {
-  
   if (event.target === cats_button) {
     contentElement.innerHTML = '';
     contentElement.append(loading_message);
 
     iWant('cats').then(cats => {
-      contentElement.innerHTML = createCatsTable(cats);
+      contentElement.innerHTML = createTable(cats, 'Cat');
       // const catElements = cats.map(cat => {
       //   const divElement = document.createElement('div');
       //   divElement.append(cat.name, ': ',cat.favoriteFood);
@@ -77,7 +77,7 @@ function handleClick(event) {
     contentElement.append(loading_message);
 
     iWant('dogs').then(dogs => {
-      console.log(dogs);
+      contentElement.innerHTML = createTable(dogs, 'Dog');
     });
   }
 
@@ -86,31 +86,59 @@ function handleClick(event) {
     contentElement.append(loading_message);
 
     iWant('unicorns').catch(message => {
-      console.log(message);
+      contentElement.innerHTML = '';
+      contentElement.append(message)
     })
   }
 }
 
-function createCatsTable(cats) {
-  return `<table>
-      <thead>
-        <tr>
-          <th>Cat name</th>
-          <th>Favorite food</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${cats.map(cat => {
-          return `
-            <tr>
-              <td>${cat.name}</td>
-              <td>${cat.favoriteFood}</td>
-            </tr>
-          `
-        }).join('')}
-      </tbody>
-    </table>
-  `;
+function createTable(animal_collection, animal_type) {
+  let tableElement = document.createElement('table');
+  let tableHeadElement = document.createElement('thead');
+  let tableBodyElement = document.createElement('tbody');
+  let tableRowHeadElement = document.createElement('tr');
+  let tableHeaderNameElement = document.createElement('th');
+  let tableHeaderFoodElement = document.createElement('th');
+  
+  tableHeaderNameElement.append(`${animal_type} name`);
+  tableHeaderFoodElement.append('Favorite food');
+  tableRowHeadElement.append(tableHeaderNameElement, tableHeaderFoodElement);
+  tableHeadElement.append(tableRowHeadElement);
+  
+  let animal_infos_element = animal_collection.map(animal => {
+    const tableDivisionNameElement = document.createElement('td');
+    tableDivisionNameElement.append(`${animal.name}`);
+    const tableDivisionFoodElement = document.createElement('td');
+    tableDivisionFoodElement.append(`${animal.favoriteFood}`);
+    const tableRowBodyElement = document.createElement('tr');
+    tableRowBodyElement.append(tableDivisionNameElement, tableDivisionFoodElement);
+    return tableRowBodyElement
+  });
+  
+  tableBodyElement.append(...animal_infos_element);
+  tableElement.append(tableHeadElement, tableBodyElement);
+  
+  console.log(tableElement)
+  
+  // return `<table>
+  //     <thead>
+  //       <tr>
+  //         <th>Cat name</th>
+  //         <th>Favorite food</th>
+  //       </tr>
+  //     </thead>
+  //     <tbody>
+  //       ${cats.map(cat => {
+  //         return `
+  //           <tr>
+  //             <td>${cat.name}</td>
+  //             <td>${cat.favoriteFood}</td>
+  //           </tr>
+  //         `
+  //       }).join('')}
+  //     </tbody>
+  //   </table>
+  // `;
 }
 
 document.body.addEventListener('click', handleClick);
