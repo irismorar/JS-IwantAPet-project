@@ -36,14 +36,13 @@ const loading_message = "Please wait...";
 let text_display_element = document.querySelector(".title");
 text_display_element.append(initial_message);
 
-let text_response = document.querySelector(".text_response")
-let item_text_response = document.createElement('div')
+let contentElement = document.querySelector(".contentElement")
 const cats_button = document.querySelector(".button_cats");
 const dogs_button = document.querySelector(".button_dogs");
 const unicorns_button = document.querySelector(".button_unicorns");
 
 function iWant(pet_type){
-  let new_promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (pet_type === 'cats'){
         resolve(cats_collection)
@@ -54,27 +53,64 @@ function iWant(pet_type){
       }
     }, 3000);
   })
-  new_promise.then(response => {
-    text_response.innerHTML = "";
-    response.map(item => text_response.append(`${item.name}: ${item.favoriteFood}/ `))
-    }).catch(response => {
-    text_response.innerHTML = "";
-    text_response.append(response);
-  })
-
-  return new_promise
 }
 
 function handleClick(event) {
+  
   if (event.target === cats_button) {
-    iWant('cats');
+    contentElement.innerHTML = '';
+    contentElement.append(loading_message);
+
+    iWant('cats').then(cats => {
+      contentElement.innerHTML = createCatsTable(cats);
+      // const catElements = cats.map(cat => {
+      //   const divElement = document.createElement('div');
+      //   divElement.append(cat.name, ': ',cat.favoriteFood);
+      //   return divElement;
+      // })
+      // contentElement.append(...catElements);
+    });
   }
+
   if (event.target === dogs_button) {
-    iWant('dogs');
+    contentElement.innerHTML = '';
+    contentElement.append(loading_message);
+
+    iWant('dogs').then(dogs => {
+      console.log(dogs);
+    });
   }
+
   if (event.target === unicorns_button) {
-    iWant('unicorns')
+    contentElement.innerHTML = '';
+    contentElement.append(loading_message);
+
+    iWant('unicorns').catch(message => {
+      console.log(message);
+    })
   }
+}
+
+function createCatsTable(cats) {
+  return `<table>
+      <thead>
+        <tr>
+          <th>Cat name</th>
+          <th>Favorite food</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${cats.map(cat => {
+          return `
+            <tr>
+              <td>${cat.name}</td>
+              <td>${cat.favoriteFood}</td>
+            </tr>
+          `
+        }).join('')}
+      </tbody>
+    </table>
+  `;
 }
 
 document.body.addEventListener('click', handleClick);

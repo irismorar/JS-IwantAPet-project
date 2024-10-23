@@ -226,16 +226,13 @@ button {
   line-height: 0;
 }
 
-button:hover ,
+button:hover,
 button:focus {
   opacity: .85;
   transform: translateX(20px) rotate(10deg) translateY(10px);
   box-shadow: -10px 0px #313030, -1em 0 .4em #bbb;
 }
 
-.text_response {
+.contentElement {
   color: pink;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
