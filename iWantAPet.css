@@ -38,7 +38,7 @@ body {
   position: relative;
   overflow: hidden;
   background: var(--bg);
-  margin: 0 0 1em 0;
+  margin: 0 0 5rem 0;
   text-align: center;
 }
 
@@ -272,8 +272,9 @@ button:hover {
 .contentElement {
   display: flex;
   justify-content: center;
-  margin-top: 5em;
+  margin-top: 5rem;
   color: pink;
+  border: 1px solid yellow;
 }
 
 table {
@@ -281,6 +282,7 @@ table {
   height: 60%;
   border: .2em solid var(--clr-5);
   color: var(--clr-6);
+  margin: 0;
 }
 
 th {
@@ -297,4 +299,23 @@ td {
   text-align: center;
   letter-spacing: .05em;
   padding: .4em .2em;
+}
+
+@media (min-width: 500px) {
+  .title_and_buttons_container {
+    position: relative;
+    padding: .4em;
+  }
+
+  .button_container {
+    position: relative;
+  }
+
+  button {
+    margin: 1.1em;
+  }
+
+  .contentElement {
+    padding: 0 2em;
+  }
 }
