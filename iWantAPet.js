@@ -58,7 +58,7 @@ function iWant(pet_type){
 }
 
 function handleClick(event) {
-  if (event.target === cats_button) {
+  if ((event.target === cats_button) || (event.target === cats_button.querySelector("span"))) {
     cats_button.disabled = true;
     dogs_button.disabled = true;
     unicorns_button.disabled = true;
@@ -83,7 +83,7 @@ function handleClick(event) {
     });
   }
 
-  if (event.target === dogs_button) {
+  if (event.target === dogs_button || (event.target === dogs_button.querySelector("span"))) {
     cats_button.disabled = true;
     dogs_button.disabled = true;
     unicorns_button.disabled = true;
@@ -102,7 +102,7 @@ function handleClick(event) {
     });
   }
 
-  if (event.target === unicorns_button) {
+  if (event.target === unicorns_button || (event.target === unicorns_button.querySelector("span"))) {
     cats_button.disabled = true;
     dogs_button.disabled = true;
     unicorns_button.disabled = true;
