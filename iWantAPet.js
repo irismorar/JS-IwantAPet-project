@@ -31,16 +31,17 @@ const dogs_collection = [
 //__________________________________________________________________
 
 const initial_message = "Choose what kind of pets you want";
-const loading_message = "Please wait...";
 const sorry_message = "Sorry, all I have is cats and dogs";
 
 let text_display_element = document.querySelector(".title");
 text_display_element.append(initial_message);
 
-let contentElement = document.querySelector(".contentElement")
 const cats_button = document.querySelector(".button_cats");
 const dogs_button = document.querySelector(".button_dogs");
 const unicorns_button = document.querySelector(".button_unicorns");
+const contentElement = document.querySelector(".contentElement")
+const loaderElement = document.querySelector(".loader")
+contentElement.innerHTML = "";
 
 function iWant(pet_type){
   return new Promise((resolve, reject) => {
@@ -58,10 +59,18 @@ function iWant(pet_type){
 
 function handleClick(event) {
   if (event.target === cats_button) {
+    cats_button.disabled = true;
+    dogs_button.disabled = true;
+    unicorns_button.disabled = true;
+
     contentElement.innerHTML = '';
-    contentElement.append(loading_message);
+    contentElement.append(loaderElement);
 
     iWant('cats').then(cats => {
+      cats_button.disabled = false;
+      dogs_button.disabled = false;
+      unicorns_button.disabled = false;
+
       const cats_table = createTable(cats, 'CAT');
       contentElement.innerHTML = '';
       contentElement.append(cats_table);
@@ -75,10 +84,18 @@ function handleClick(event) {
   }
 
   if (event.target === dogs_button) {
+    cats_button.disabled = true;
+    dogs_button.disabled = true;
+    unicorns_button.disabled = true;
+
     contentElement.innerHTML = '';
-    contentElement.append(loading_message);
+    contentElement.append(loaderElement);
 
     iWant('dogs').then(dogs => {
+      cats_button.disabled = false;
+      dogs_button.disabled = false;
+      unicorns_button.disabled = false;
+
       const dog_table = createTable(dogs, 'DOG');
       contentElement.innerHTML = '';
       contentElement.append(dog_table);
@@ -86,10 +103,18 @@ function handleClick(event) {
   }
 
   if (event.target === unicorns_button) {
+    cats_button.disabled = true;
+    dogs_button.disabled = true;
+    unicorns_button.disabled = true;
+
     contentElement.innerHTML = '';
-    contentElement.append(loading_message);
+    contentElement.append(loaderElement);
 
     iWant('unicorns').catch(message => {
+      cats_button.disabled = false;
+      dogs_button.disabled = false;
+      unicorns_button.disabled = false;
+      
       contentElement.innerHTML = '';
       contentElement.append(message)
     })
